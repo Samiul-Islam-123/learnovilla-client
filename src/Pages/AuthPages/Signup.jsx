@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -31,13 +33,37 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+
+  const navigate = useNavigate();
+
+  const handleSubmit =async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      firstName : data.get('firstName'),
+      lastName : data.get('lastName')
+
     });
+
+    const firstName = data.get('firstName');
+    const lastName = data.get('lastName');
+    
+
+    const response = await axios.post(`http://localhost:5000/auth/signup`,{
+      email: data.get('email'),
+      password: data.get('password'),
+      username : firstName + " "+ lastName
+    })
+
+    if(response.data.success === true){
+      navigate('/login')
+    }
+
+    else{
+      alert(response.data.message)
+    }
   };
 
   return (
@@ -101,12 +127,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+              
             </Grid>
             <Button
               type="submit"
