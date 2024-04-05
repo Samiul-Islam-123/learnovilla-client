@@ -23,7 +23,7 @@ const logoStyle = {
 
 function AppAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
-  const {isLoggedIn} = useAuth();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const toggleDrawer = (newOpen) => () => {
@@ -44,11 +44,11 @@ function AppAppBar({ mode, toggleColorMode }) {
     }
   };
 
-  const PerformLoginProcess = async() =>{
+  const PerformLoginProcess = async () => {
     navigate('/login');
   }
 
-  const PerformSigninProcess = async() =>{
+  const PerformSigninProcess = async () => {
     navigate('/signup')
   }
 
@@ -155,31 +155,33 @@ function AppAppBar({ mode, toggleColorMode }) {
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               {
                 isLoggedIn ? (<>
-<Button variant='outlined'>
-    Dashboard
-</Button>
+                  <Button variant='outlined' onClick={()=>{
+                    navigate('/dashboard')
+                  }}>
+                    Dashboard
+                  </Button>
                 </>) : (<>
-                    <Button
-              onClick={PerformLoginProcess}
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                target="_blank"
-              >
-                Login
-              </Button>
-              <Button
-              onClick={PerformSigninProcess}
-                color="primary"
-                variant="contained"
-                size="small"
-                component="a"
-                
-                target="_blank"
-              >
-                Sign in
-              </Button>
+                  <Button
+                    onClick={PerformLoginProcess}
+                    color="primary"
+                    variant="text"
+                    size="small"
+                    component="a"
+                    target="_blank"
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    onClick={PerformSigninProcess}
+                    color="primary"
+                    variant="contained"
+                    size="small"
+                    component="a"
+
+                    target="_blank"
+                  >
+                    Sign Up
+                  </Button>
                 </>)
               }
             </Box>
