@@ -18,7 +18,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import CourseCard from "../components/CourseCard";
+import CardMedia from '@mui/material/CardMedia';
+import MentorCard from "../components/MentorCard";
+import banner from "../assets/mentoring-concept-giving-advice-career-success-guidance-business-support-motivation-illustration_277904-3963.avif"
 
 function Copyright(props) {
     return (
@@ -87,7 +89,7 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Mentors() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -121,7 +123,7 @@ export default function Dashboard() {
                         noWrap
                         sx={{ flexGrow: 1 }}
                     >
-                        Dashboard
+                        Mentors
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
@@ -167,34 +169,40 @@ export default function Dashboard() {
                     <Grid item xs={12} md={4} lg={3}>
                         <Paper
                             sx={{
-                                p: 2,
+                                
                                 display: "flex",
                                 flexDirection: "column",
                                 height: 240,
+                                overflow: "hidden"
                             }}
-                        ></Paper>
+                        >
+                            <CardMedia
+                                component="img"
+                                height="240"
+                                image={banner}
+                                alt="green iguana"
+                            />
+                        </Paper>
                     </Grid>
                     <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1, marginTop: 5, marginBottom: 5 }}
-                        >
-                            My Courses
-                        </Typography>
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        sx={{ flexGrow: 1, marginTop: 5, marginBottom: 5 }}
+                    >
+                        Top Mentors
+                    </Typography>
                     <Grid container spacing={2}>
-                        
                         <Grid item xs={4}>
-                          <CourseCard />
+                            <MentorCard />
                         </Grid>
                         <Grid item xs={4}>
-                          <CourseCard />
+                            <MentorCard />
                         </Grid>
                         <Grid item xs={4}>
-                          <CourseCard />
+                            <MentorCard />
                         </Grid>
-                        
                         
                     </Grid>
                 </Container>

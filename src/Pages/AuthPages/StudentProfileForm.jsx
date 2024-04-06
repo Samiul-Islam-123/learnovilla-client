@@ -21,13 +21,14 @@ function StudentProfileForm() {
 
     const languages = [
         'English',
+        'Bengali',
         'Spanish',
         'French',
         'German',
         'Chinese',
         'Japanese',
-        'Arabic',
-        'Bengali'
+        'Arabic'
+        
     ];
 
     // State variables for managing form data

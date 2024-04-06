@@ -7,6 +7,7 @@ import Dashboard from '../Pages/Dashboard'
 import ChooseRole from '../Pages/AuthPages/ChooseRole'
 import MentorProfileForm from '../Pages/AuthPages/MentorProfileForm'
 import StudentProfileForm from '../Pages/AuthPages/StudentProfileForm'
+import Mentors from '../Pages/Mentors'
 
 function MainRoutes() {
   return (
@@ -22,6 +23,7 @@ function MainRoutes() {
             
             <Route exact path='/signup' element={<SignUp />}></Route>
             <Route exact path='/dashboard' element={<Dashboard />}></Route>
+            <Route exact path='/mentors' element={<Mentors />}></Route>
 
         </Routes>
     </>
