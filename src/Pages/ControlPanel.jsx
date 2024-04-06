@@ -38,6 +38,7 @@ import { Routes, Route } from "react-router-dom"
 import MentorDashboard from "./MentorPages/MentorDashboard";
 import Mentors from "./Mentors";
 import MentorExplore from "./MentorPages/MentorExplore";
+import MentorCourse from "./MentorPages/MentorCourse";
 
 function Copyright(props) {
     return (
@@ -236,6 +237,18 @@ export default function ControlPanel() {
 
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <Routes>
+
+                        <Route exact path="/" element=
+
+                            {<>
+                                {
+                                    CheckRole() === 'mentor' ? (<>
+                                        <MentorDashboard />
+                                    </>) : (<>Students</>)
+                                }
+                            </>
+                            } />
+
                         <Route exact path="/explore" element=
 
                             {<>
@@ -243,6 +256,15 @@ export default function ControlPanel() {
                                     CheckRole() === 'mentor' ? (<>
                                         <Mentors />
                                     </>) : (<>Students</>)
+                                }
+                            </>
+                            } />
+
+                        <Route exact path="/courses" element=
+
+                            {<>
+                                {
+                                    <MentorCourse />
                                 }
                             </>
                             } />
