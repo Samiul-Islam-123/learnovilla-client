@@ -38,6 +38,7 @@ import { Routes, Route } from "react-router-dom"
 import MentorDashboard from "./MentorPages/MentorDashboard";
 import Mentors from "./Mentors";
 import MentorExplore from "./MentorPages/MentorExplore";
+import MentorCourse from "./MentorPages/MentorCourse";
 
 function Copyright(props) {
     return (
@@ -244,6 +245,13 @@ export default function ControlPanel() {
                                         <Mentors />
                                     </>) : (<>Students</>)
                                 }
+                            </>
+                            } />
+
+                            <Route exact path="/courses" element=
+
+                            {<>
+                                <MentorCourse />
                             </>
                             } />
 

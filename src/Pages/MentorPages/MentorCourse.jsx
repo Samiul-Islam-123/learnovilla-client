@@ -1,8 +1,11 @@
 import React from 'react'
+import Container from "@mui/material/Container";
 
 function MentorCourse() {
   return (
-    <div>MentorCourse</div>
+    <>
+      <Container style={{margin:30}}>Helooo</Container>
+      </>
   )
 }
 
