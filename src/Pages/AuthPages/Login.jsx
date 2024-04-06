@@ -46,13 +46,9 @@ export default function Login() {
         const data = new FormData(event.currentTarget);
 
 
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-            rememberMe: rememberMe
-        });
+        //console.log(`${process.env.REACT_APP_API_URL}/auth/login`)
 
-        const response = await axios.post(`http://localhost:5000/auth/login`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
             email: data.get('email'),
             password: data.get('password'),
         })

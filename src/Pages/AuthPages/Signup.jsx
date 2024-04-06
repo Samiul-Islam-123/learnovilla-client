@@ -52,7 +52,7 @@ export default function SignUp() {
     const lastName = data.get('lastName');
     
 
-    const response = await axios.post(`http://localhost:5000/auth/signup`,{
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`,{
       email: data.get('email'),
       password: data.get('password'),
       username : firstName + " "+ lastName
