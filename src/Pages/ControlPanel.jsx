@@ -17,8 +17,27 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "../components/listItems";
 import CourseCard from "../components/CourseCard";
+
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import ChatIcon from '@mui/icons-material/Chat';
+
+import ExploreIcon from '@mui/icons-material/Explore';
+import SchoolIcon from '@mui/icons-material/School';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+
+import { useNavigate } from "react-router-dom"
+import MentorControls from "../RouteControllers/MentorControls";
+
+import { Routes, Route } from "react-router-dom"
+import MentorDashboard from "./MentorPages/MentorDashboard";
+import Mentors from "./Mentors";
+import MentorExplore from "./MentorPages/MentorExplore";
 
 function Copyright(props) {
     return (
@@ -84,10 +103,22 @@ const Drawer = styled(MuiDrawer, {
     },
 }));
 
+
+const CheckRole = () => {
+    const role = (localStorage.getItem('role'));
+
+    return role;
+}
+
+console.log(CheckRole());
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function ControlPanel() {
+
+    const navigate = useNavigate()
+
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -145,9 +176,49 @@ export default function Dashboard() {
                 </Toolbar>
                 <Divider />
                 <List component="nav">
-                    {mainListItems}
+                    <ListItemButton onClick={() => navigate('/app')}>
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                    </ListItemButton>
+                    <ListItemButton onClick={() => navigate('mentors')}>
+                        <ListItemIcon>
+                            <PeopleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Mentors" />
+                    </ListItemButton>
+                    <ListItemButton onClick={() => navigate('explore')}>
+                        <ListItemIcon>
+                            <ExploreIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Explore" />
+                    </ListItemButton>
+
+                    <ListItemButton onClick={() => navigate('courses')}>
+                        <ListItemIcon>
+                            <SchoolIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Courses" />
+                    </ListItemButton>
+
+                    <ListItemButton onClick={() => navigate('communication')}>
+                        <ListItemIcon>
+                            <ChatIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Communication" />
+                    </ListItemButton>
+
+                    <ListItemButton onClick={() => navigate('feedback')}>
+                        <ListItemIcon>
+                            <ThumbUpOffAltIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Feedback" />
+                    </ListItemButton>
                     <Divider sx={{ my: 1 }} />
-                    {secondaryListItems}
+                    <ListSubheader component="div" inset>
+                        Saved reports
+                    </ListSubheader>
                 </List>
             </Drawer>
             <Box
@@ -162,41 +233,21 @@ export default function Dashboard() {
                     overflow: "auto",
                 }}
             >
-                <Toolbar />
+
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                    <Grid item xs={12} md={4} lg={3}>
-                        <Paper
-                            sx={{
-                                p: 2,
-                                display: "flex",
-                                flexDirection: "column",
-                                height: 240,
-                            }}
-                        ></Paper>
-                    </Grid>
-                    <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1, marginTop: 5, marginBottom: 5 }}
-                        >
-                            My Courses
-                        </Typography>
-                    <Grid container spacing={2}>
-                        
-                        <Grid item xs={4}>
-                          <CourseCard />
-                        </Grid>
-                        <Grid item xs={4}>
-                          <CourseCard />
-                        </Grid>
-                        <Grid item xs={4}>
-                          <CourseCard />
-                        </Grid>
-                        
-                        
-                    </Grid>
+                    <Routes>
+                        <Route exact path="/explore" element=
+
+                            {<>
+                                {
+                                    CheckRole() === 'mentor' ? (<>
+                                        <Mentors />
+                                    </>) : (<>Students</>)
+                                }
+                            </>
+                            } />
+
+                    </Routes>
                 </Container>
             </Box>
         </Box>

@@ -156,7 +156,7 @@ function AppAppBar({ mode, toggleColorMode }) {
               {
                 isLoggedIn ? (<>
                   <Button variant='outlined' onClick={()=>{
-                    navigate('/dashboard')
+                    navigate('/app')
                   }}>
                     Dashboard
                   </Button>

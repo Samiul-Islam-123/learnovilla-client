@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import SchoolIcon from '@mui/icons-material/School';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function ChooseRole() {
     const [mentorHovered, setMentorHovered] = useState(false);
     const [studentHovered, setStudentHovered] = useState(false);
-    const [studentClicked, setStudentClicked] = useState(false);
-    const [mentorClicked, setMentorClicked] = useState(false);
-
     const navigate = useNavigate();
-
 
     const handleMentorMouseEnter = () => {
         setMentorHovered(true);
@@ -29,17 +25,14 @@ function ChooseRole() {
     };
 
     const handleMentorMouseClick = () => {
-        setMentorClicked(true);
+        localStorage.setItem('role', 'mentor'); // Store selected role in local storage
+        navigate('/mentor-profile-input');
     }
 
     const handleStudentMouseClick = () => {
-        setStudentClicked(true)
+        localStorage.setItem('role', 'student'); // Store selected role in local storage
+        navigate('/student-profile-input');
     }
-
-    useEffect(()=>{
-        console.log(mentorClicked)
-    },[mentorClicked])
-
 
     return (
         <>
@@ -76,16 +69,12 @@ function ChooseRole() {
                         cursor: "pointer",
                         flexDirection: 'column',
                         boxShadow: mentorHovered ? '0 0 10px 5px #fff, 0 0 20px 10px #037ffc, 0 0 30px 15px #fff' : 'none',
-                        scale: mentorClicked ? '1.1' : '1',
-                        transition: 'all 0.3s', 
                     }}
                         onMouseEnter={handleMentorMouseEnter}
                         onMouseLeave={handleMentorMouseLeave}
-                        onClick={()=>{
-                            navigate('/mentor-profile-input')
-                        }}
-                        >
-                        
+                        onClick={handleMentorMouseClick}
+                    >
+
                         <SchoolIcon />
                         <h2>Mentor</h2>
                     </div>
@@ -102,16 +91,11 @@ function ChooseRole() {
                         flexDirection: 'column',
                         cursor: "pointer",
                         boxShadow: studentHovered ? '0 0 10px 5px #fff, 0 0 20px 10px #037ffc, 0 0 30px 15px #fff' : 'none',
-                        scale: studentClicked ? '1.1' : '1',
-                        transition: 'all 0.3s',
                     }}
                         onMouseEnter={handleStudentMouseEnter}
                         onMouseLeave={handleStudentMouseLeave}
-                        onClick={()=>{
-                            navigate('/student-profile-input')
-
-                        }}
-                        >
+                        onClick={handleStudentMouseClick}
+                    >
                         <PeopleAltIcon />
                         <h2>Student</h2>
                     </div>
