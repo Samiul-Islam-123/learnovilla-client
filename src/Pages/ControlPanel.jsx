@@ -237,6 +237,18 @@ export default function ControlPanel() {
 
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <Routes>
+
+                        <Route exact path="/" element=
+
+                            {<>
+                                {
+                                    CheckRole() === 'mentor' ? (<>
+                                        <MentorDashboard />
+                                    </>) : (<>Students</>)
+                                }
+                            </>
+                            } />
+
                         <Route exact path="/explore" element=
 
                             {<>
@@ -248,10 +260,12 @@ export default function ControlPanel() {
                             </>
                             } />
 
-                            <Route exact path="/courses" element=
+                        <Route exact path="/courses" element=
 
                             {<>
-                                <MentorCourse />
+                                {
+                                    <MentorCourse />
+                                }
                             </>
                             } />
 
