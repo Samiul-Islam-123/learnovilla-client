@@ -40,7 +40,7 @@ import MentorDashboard from "./MentorPages/MentorDashboard";
 import Mentors from "./Mentors";
 import MentorExplore from "./MentorPages/MentorExplore";
 import MentorCourse from "./MentorPages/MentorCourse";
-import MentorProfile from "./MentorPages/MentorProfile";
+import MentorCommunication from "./MentorPages/MentorCommunication";
 
 function Copyright(props) {
     return (
@@ -185,12 +185,7 @@ export default function ControlPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" />
                     </ListItemButton>
-                    <ListItemButton onClick={() => navigate('mentors')}>
-                        <ListItemIcon>
-                            <PeopleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Mentors" />
-                    </ListItemButton>
+                    
                     <ListItemButton onClick={() => navigate('explore')}>
                         <ListItemIcon>
                             <ExploreIcon />
@@ -251,9 +246,12 @@ export default function ControlPanel() {
 
                             {<>
                                 {
-                                    CheckRole() === 'mentor' ? (<>
+                                    
                                         <MentorDashboard />
-                                    </>) : (<>Students</>)
+                                    
+
+
+
                                 }
                             </>
                             } />
@@ -262,9 +260,9 @@ export default function ControlPanel() {
 
                             {<>
                                 {
-                                    CheckRole() === 'mentor' ? (<>
-                                        <Mentors />
-                                    </>) : (<>Students</>)
+                                    
+                                        <MentorExplore />
+                                    
                                 }
                             </>
                             } />
@@ -278,11 +276,11 @@ export default function ControlPanel() {
                             </>
                             } />
 
-                        <Route exact path="/profile" element=
+                        <Route exact path="/communication" element=
 
                             {<>
                                 {
-                                    <MentorProfile />
+                                    <MentorCommunication />
                                 }
                             </>
                             } />
