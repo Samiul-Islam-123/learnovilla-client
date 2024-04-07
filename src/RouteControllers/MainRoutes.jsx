@@ -30,7 +30,7 @@ function MainRoutes() {
         <Routes>
             <Route exact path='/' element={<LandingPage />}></Route>
             <Route exact path='/login' element={<Login />}></Route>
-            <Route exact path='/choose-role' element={<ChooseRole />}></Route>
+            <Route exact path='/choose-role/*' element={<ChooseRole />}></Route>
             <Route exact path='/mentor-profile-input' element={<MentorProfileForm />}></Route>
             <Route exact path='/student-profile-input' element={<StudentProfileForm />}></Route>
 

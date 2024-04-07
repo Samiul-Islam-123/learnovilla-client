@@ -63,8 +63,10 @@ function MentorProfileForm() {
     // Function to add a new skill
     const addSkill = () => {
         if (newSkill.trim() !== '' && skills.length < 5) {
-            setSkills([...skills, newSkill]);
-            setNewSkill('');
+            setFormData({
+                ...formData,
+                skills: [...formData.skills, formData.newSkill]
+            });
         }
     };
 
@@ -72,7 +74,10 @@ function MentorProfileForm() {
     const deleteSkill = (index) => {
         const updatedSkills = [...skills];
         updatedSkills.splice(index, 1);
-        setSkills(updatedSkills);
+        setFormData({
+            ...formData,
+            skills: updatedSkills
+        });
     };
 
     const handleFileChange = (event) => {
@@ -84,6 +89,34 @@ function MentorProfileForm() {
             };
             reader.readAsDataURL(file);
         }
+    };
+
+    // State variables for managing form data
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        gender: '',
+        contactNumber: '',
+        email: '',
+        address: '',
+        school: '',
+        currentYear: '',
+        description: '',
+        socialMediaLinks: '',
+        skills: [],
+        language: '',
+    });
+
+    const handleSubmit = () =>{
+        console.log(formData)
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     };
 
     return (
@@ -131,11 +164,11 @@ function MentorProfileForm() {
 
                     {/* First Name */}
                     <Grid item md={6} xs={12}>
-                        <TextField label="First Name" fullWidth />
+                        <TextField label="First Name" fullWidth  onChange={handleChange}/>
                     </Grid>
                     {/* Last Name */}
                     <Grid item md={6} xs={12}>
-                        <TextField label="Last Name" fullWidth />
+                        <TextField label="Last Name" fullWidth onChange={handleChange} />
                     </Grid>
                     {/* Gender */}
                     <Grid item md={12} xs={12} >
@@ -146,8 +179,8 @@ function MentorProfileForm() {
                             <RadioGroup
                                 aria-label="gender"
                                 name="gender"
-                                value={gender}
-                                onChange={(e) => setGender(e.target.value)}
+                                value={formData.gender}
+                                onChange={handleChange}
                                 style={{
                                     display: "flex",
                                     flexDirection: "row"
@@ -161,13 +194,13 @@ function MentorProfileForm() {
                     </Grid>
                     {/* Contact Number */}
                     <Grid item md={12} xs={12}>
-                        <TextField label="Contact No." fullWidth />
+                        <TextField label="Contact No." fullWidth  onChange={handleChange}/>
                     </Grid>
 
                     {/* Description */}
                     <Grid item md={12} xs={12}>
 
-                        <TextField multiline style={{
+                        <TextField multiline onChange={handleChange} style={{
                             marginTop: "10px"
                         }} rows={4} label="Your Description (Bio)" fullWidth />
                     </Grid>
@@ -183,6 +216,7 @@ function MentorProfileForm() {
                             fullWidth
                             variant="outlined"
                             defaultValue=""
+                            onChange={handleChange}
                         >
                             {languages.map((option, index) => (
                                 <MenuItem key={index} value={option}>
@@ -205,6 +239,7 @@ function MentorProfileForm() {
                             fullWidth
                             variant="outlined"
                             defaultValue=""
+                            onChange={handleChange}
                         >
                             {degrees.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
@@ -224,6 +259,7 @@ function MentorProfileForm() {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            onChange={handleChange}
                         />
 
 
@@ -236,6 +272,7 @@ function MentorProfileForm() {
                             fullWidth
                             variant="outlined"
                             marginBottom={"10px"}
+                            onChange={handleChange}
                         />
 
                         {/* Skills and Expertise Section */}
@@ -248,8 +285,8 @@ function MentorProfileForm() {
                                 label="Add Skill ( Max 5 )"
                                 fullWidth
                                 variant="outlined"
-                                value={newSkill}
-                                onChange={(e) => setNewSkill(e.target.value)}
+                                value={formData.newSkill}
+                                onChange={handleChange}
                                 onKeyPress={(e) => {
                                     if (e.key === 'Enter') addSkill();
                                 }}
@@ -278,6 +315,7 @@ function MentorProfileForm() {
                                 fullWidth
                                 variant="outlined"
                                 defaultValue=""
+                                onChange={handleChange}
                             >
                                 {mentoringExperience.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -297,7 +335,7 @@ function MentorProfileForm() {
 
                     marginTop: "10px",
                     marginBottom: "150px"
-                }} variant="contained">Next</Button>
+                }} variant="contained" onClick={handleSubmit}>Next</Button>
 
 
 

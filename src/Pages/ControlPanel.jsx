@@ -41,6 +41,7 @@ import Mentors from "./Mentors";
 import MentorExplore from "./MentorPages/MentorExplore";
 import MentorCourse from "./MentorPages/MentorCourse";
 import MentorCommunication from "./MentorPages/MentorCommunication";
+import MentorProfile from "./MentorPages/MentorProfile";
 
 function Copyright(props) {
     return (
@@ -185,7 +186,7 @@ export default function ControlPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" />
                     </ListItemButton>
-                    
+
                     <ListItemButton onClick={() => navigate('explore')}>
                         <ListItemIcon>
                             <ExploreIcon />
@@ -246,9 +247,9 @@ export default function ControlPanel() {
 
                             {<>
                                 {
-                                    
-                                        <MentorDashboard />
-                                    
+
+                                    <MentorDashboard />
+
 
 
 
@@ -260,9 +261,9 @@ export default function ControlPanel() {
 
                             {<>
                                 {
-                                    
-                                        <MentorExplore />
-                                    
+
+                                    <MentorExplore />
+
                                 }
                             </>
                             } />
@@ -281,6 +282,15 @@ export default function ControlPanel() {
                             {<>
                                 {
                                     <MentorCommunication />
+                                }
+                            </>
+                            } />
+
+                        <Route exact path="/profile" element=
+
+                            {<>
+                                {
+                                    <MentorProfile />
                                 }
                             </>
                             } />

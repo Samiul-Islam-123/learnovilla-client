@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthProvider } from './Context/AuthContext';
+import { UserProvider } from './Context/UserContext';
 
 // Define the dark theme
 const darkTheme = createTheme({
@@ -27,12 +28,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
+      <UserProvider>
 
-    <ThemeProvider theme={darkTheme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+        <ThemeProvider theme={darkTheme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
+      </UserProvider>
     </AuthProvider>
   </React.StrictMode>
 );

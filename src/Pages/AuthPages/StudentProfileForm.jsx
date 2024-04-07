@@ -3,6 +3,7 @@ import { Container, TextField, Grid, Typography, MenuItem, InputLabel, List, Lis
 import { AddCircle as AddCircleIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import { useUser } from '../../Context/UserContext';
 
 function StudentProfileForm() {
 
@@ -64,6 +65,7 @@ function StudentProfileForm() {
         }
     };
 
+    const {userId, setUser, username, email, updateUsername, updateEmail} = useUser();
     // Function to delete a skill
     const deleteSkill = (index) => {
         const updatedSkills = [...formData.skills];
@@ -108,6 +110,8 @@ function StudentProfileForm() {
             });
 
         if(response.data.success === true){
+
+            
             navigate('/app');
         }
 
@@ -194,7 +198,7 @@ function StudentProfileForm() {
                     </Grid>
 
                     <Grid item md={12} xs={12}>
-                        <TextField name="email" label="Email ID" fullWidth onChange={handleChange} />
+                        <TextField defaultValue={email} name="email" label="Email ID" fullWidth onChange={handleChange} />
                     </Grid>
 
                     <Grid item md={12} xs={12}>

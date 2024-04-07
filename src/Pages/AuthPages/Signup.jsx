@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ChooseRole from './ChooseRole';
+import { useUser } from '../../Context/UserContext';
 
 function Copyright(props) {
   return (
@@ -34,6 +35,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+
+  const {userId, setUser, updateUsername, updateEmail} = useUser();
 
   const navigate = useNavigate();
 
@@ -59,6 +62,9 @@ export default function SignUp() {
     })
 
     if(response.data.success === true){
+      setUser(response.data.user_id)
+      updateUsername(firstName + " "+ lastName);
+      updateEmail(data.get('email'))
       navigate('/choose-role');
     }
 
