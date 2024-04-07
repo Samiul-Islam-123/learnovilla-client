@@ -2,12 +2,10 @@ import React from 'react';
 import { Grid, Paper, Typography } from "@mui/material";
 import CourseCard from './../../components//CourseCard'; // assuming CourseCard is a custom component
 
-function MentorCourses() {
+function MentorProfile() {
   return (
     <>
-      <Grid item xs={12} md={4} lg={3}>
-        
-      </Grid>
+      
       <Typography
         component="h1"
         variant="h6"
@@ -15,21 +13,23 @@ function MentorCourses() {
         noWrap
         sx={{ flexGrow: 1, marginTop: 10, marginBottom: 5 }}
       >
-        My Courses
+        My Profile
       </Typography>
+      <Grid item xs={12} md={4} lg={3}>
+        <Paper
+          sx={{
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+            height: 240,
+          }}
+        ></Paper>
+      </Grid>
       <Grid container spacing={2}>
-        <Grid item lg={4} md = {6} xs = {12}>
-          <CourseCard />
-        </Grid>
-        <Grid item lg={4} md = {6} xs = {12}>
-          <CourseCard />
-        </Grid>
-        <Grid item lg={4} md = {6} xs = {12}>
-          <CourseCard />
-        </Grid>
+
       </Grid>
     </>
   );
 }
 
-export default MentorCourses;
+export default MentorProfile;

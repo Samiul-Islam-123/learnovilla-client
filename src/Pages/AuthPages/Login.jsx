@@ -58,7 +58,8 @@ export default function Login() {
             //storing token into cookie
             Cookies.set("access_token", response.data.token, { secure: true });
             updateLoginStatus();//this is for updating the state
-            navigate('/');
+            
+            navigate('/app');
         }
 
         else {

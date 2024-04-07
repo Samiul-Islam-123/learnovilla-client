@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Container, TextField, Grid, Typography, MenuItem, InputLabel, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, RadioGroup, FormControlLabel, Radio, Button } from '@mui/material';
 import { AddCircle as AddCircleIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import axios from 'axios';
+import {useNavigate} from "react-router-dom"
 
 function StudentProfileForm() {
+
+    const navigate = useNavigate();
+
     // Define options for degrees and mentoring experience
     const degrees = [
         {
@@ -32,25 +37,41 @@ function StudentProfileForm() {
     ];
 
     // State variables for managing form data
-    const [skills, setSkills] = useState([]);
-    const [newSkill, setNewSkill] = useState('');
-    const [gender, setGender] = useState('');
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        gender: '',
+        contactNumber: '',
+        email: '',
+        address: '',
+        school: '',
+        currentYear: '',
+        description: '',
+        socialMediaLinks: '',
+        skills: [],
+        language: '',
+    });
 
+    const [profilePicture, setProfilePicture] = useState(null);
 
     // Function to add a new skill
     const addSkill = () => {
-        if (newSkill.trim() !== '' && skills.length < 5) {
-            setSkills([...skills, newSkill]);
-            setNewSkill('');
+        if (formData.skills.length < 5) {
+            setFormData({
+                ...formData,
+                skills: [...formData.skills, formData.newSkill]
+            });
         }
     };
 
     // Function to delete a skill
     const deleteSkill = (index) => {
-        const updatedSkills = [...skills];
+        const updatedSkills = [...formData.skills];
         updatedSkills.splice(index, 1);
-        setSkills(updatedSkills);
+        setFormData({
+            ...formData,
+            skills: updatedSkills
+        });
     };
 
     const handleFileChange = (event) => {
@@ -62,6 +83,36 @@ function StudentProfileForm() {
             };
             reader.readAsDataURL(file);
         }
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = async() => {
+        console.log(formData);
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/app/create-student`, 
+            {
+                username : formData.firstName + " "+ formData.lastName,
+                gender : formData.gender,
+                contactNumber : formData.contactNumber,
+                address : formData.address,
+                academicYear : formData.currentYear,
+                description : formData.description,
+                socialLinks : formData.socialMediaLinks,
+                hobbies : formData.skills
+            });
+
+        if(response.data.success === true){
+            navigate('/app');
+        }
+
+        else
+        alert(response.data.message)
     };
 
     return (
@@ -109,11 +160,11 @@ function StudentProfileForm() {
                    
                     {/* First Name */}
                     <Grid item md={6} xs={12}>
-                        <TextField label="First Name" fullWidth />
+                        <TextField name="firstName" label="First Name" fullWidth onChange={handleChange} />
                     </Grid>
                     {/* Last Name */}
                     <Grid item md={6} xs={12}>
-                        <TextField label="Last Name" fullWidth />
+                        <TextField name="lastName" label="Last Name" fullWidth onChange={handleChange} />
                     </Grid>
                     {/* Gender */}
                     <Grid item md={12} xs={12} >
@@ -124,8 +175,8 @@ function StudentProfileForm() {
                             <RadioGroup
                                 aria-label="gender"
                                 name="gender"
-                                value={gender}
-                                onChange={(e) => setGender(e.target.value)}
+                                value={formData.gender}
+                                onChange={handleChange}
                                 style={{
                                     display: "flex",
                                     flexDirection: "row"
@@ -139,15 +190,15 @@ function StudentProfileForm() {
                     </Grid>
                     {/* Contact Number */}
                     <Grid item md={12} xs={12}>
-                        <TextField label="Contact No." fullWidth />
+                        <TextField name="contactNumber" label="Contact No." fullWidth onChange={handleChange} />
                     </Grid>
 
                     <Grid item md={12} xs={12}>
-                        <TextField label="Email ID" fullWidth />
+                        <TextField name="email" label="Email ID" fullWidth onChange={handleChange} />
                     </Grid>
 
                     <Grid item md={12} xs={12}>
-                        <TextField multiline rows={4} label="Address" fullWidth />
+                        <TextField name="address" multiline rows={4} label="Address" fullWidth onChange={handleChange} />
                     </Grid>
 
                     {/* Academic Background Section */}
@@ -157,14 +208,16 @@ function StudentProfileForm() {
                         </Typography>
                         {/* Current School/institutu */}
                         <TextField
+                            name="school"
                             marginBottom={"10px"}
-
                             label="School/Institute"
                             fullWidth
                             variant="outlined"
+                            onChange={handleChange}
                         />
                         {/* class/ Year */}
                         <TextField
+                            name="currentYear"
                             style={{
                                 marginTop: "10px"
                             }}
@@ -172,7 +225,7 @@ function StudentProfileForm() {
                             label="Current Year/class"
                             marginBottom={"10px"}
                             variant="outlined"
-
+                            onChange={handleChange}
                         />
 
                         {/* Certificates */}
@@ -187,7 +240,6 @@ function StudentProfileForm() {
                                 marginTop: "10px"
                             }}
                             type="file"
-                            
                             label="Certificates/Honors"
                             marginBottom={"10px"}
                             variant="outlined"
@@ -197,12 +249,21 @@ function StudentProfileForm() {
                         />
 
                         {/* Description */}
-                        <TextField multiline style={{
-                            marginTop: "10px"
-                        }} rows={4} label="Your Description (Bio)" fullWidth />
+                        <TextField
+                            name="description"
+                            multiline
+                            style={{
+                                marginTop: "10px"
+                            }}
+                            rows={4}
+                            label="Your Description (Bio)"
+                            fullWidth
+                            onChange={handleChange}
+                        />
 
                         {/* Social Media Links */}
                         <TextField
+                            name="socialMediaLinks"
                             style={{
                                 marginTop: "10px"
                             }}
@@ -210,6 +271,7 @@ function StudentProfileForm() {
                             fullWidth
                             variant="outlined"
                             marginBottom={"10px"}
+                            onChange={handleChange}
                         />
 
                         {/* Hobbies and Interests Section */}
@@ -222,15 +284,15 @@ function StudentProfileForm() {
                                 label="Add Hoobie/Interests ( Max 5 )"
                                 fullWidth
                                 variant="outlined"
-                                value={newSkill}
-                                onChange={(e) => setNewSkill(e.target.value)}
+                                value={formData.newSkill}
+                                onChange={(e) => setFormData({ ...formData, newSkill: e.target.value })}
                                 onKeyPress={(e) => {
                                     if (e.key === 'Enter') addSkill();
                                 }}
                             />
                             {/* List of Hobbies */}
                             <List>
-                                {skills.map((skill, index) => (
+                                {formData.skills.map((skill, index) => (
                                     <ListItem key={index} >
                                         <ListItemText primary={skill} />
                                         <ListItemSecondaryAction>
@@ -246,12 +308,14 @@ function StudentProfileForm() {
                         {/* Language spoken */}
                         <Grid item md={12} xs={12}>
                             <TextField
+                                name="language"
                                 marginBottom={"10px"}
                                 select
                                 label="Language spoken"
                                 fullWidth
                                 variant="outlined"
                                 defaultValue=""
+                                onChange={handleChange}
                             >
                                 {languages.map((option, index) => (
                                     <MenuItem key={index} value={option}>
@@ -268,7 +332,7 @@ function StudentProfileForm() {
                     
                     marginTop : "10px",
                     marginBottom : "150px"
-                }} variant="contained">Next</Button>   
+                }} variant="contained" onClick={handleSubmit}>Next</Button>   
             </Container>
         </>
     )

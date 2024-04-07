@@ -26,6 +26,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import ChatIcon from '@mui/icons-material/Chat';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import ExploreIcon from '@mui/icons-material/Explore';
 import SchoolIcon from '@mui/icons-material/School';
@@ -39,6 +40,7 @@ import MentorDashboard from "./MentorPages/MentorDashboard";
 import Mentors from "./Mentors";
 import MentorExplore from "./MentorPages/MentorExplore";
 import MentorCourse from "./MentorPages/MentorCourse";
+import MentorProfile from "./MentorPages/MentorProfile";
 
 function Copyright(props) {
     return (
@@ -216,10 +218,17 @@ export default function ControlPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Feedback" />
                     </ListItemButton>
+
+                    <ListItemButton onClick={() => navigate('profile')}>
+                        <ListItemIcon>
+                            <AccountCircleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Profile" />
+                    </ListItemButton>
+
+
                     <Divider sx={{ my: 1 }} />
-                    <ListSubheader component="div" inset>
-                        Saved reports
-                    </ListSubheader>
+
                 </List>
             </Drawer>
             <Box
@@ -265,6 +274,15 @@ export default function ControlPanel() {
                             {<>
                                 {
                                     <MentorCourse />
+                                }
+                            </>
+                            } />
+
+                        <Route exact path="/profile" element=
+
+                            {<>
+                                {
+                                    <MentorProfile />
                                 }
                             </>
                             } />
