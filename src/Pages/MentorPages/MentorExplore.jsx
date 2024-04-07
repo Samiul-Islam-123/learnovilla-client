@@ -21,6 +21,8 @@ import CardMedia from "@mui/material/CardMedia";
 import MentorCard from "../../components/MentorCard";
 import banner from "../../assets/images.jpg";
 import CourseCard from "../../components/CourseCard";
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Copyright(props) {
     return (
@@ -97,23 +99,14 @@ export default function Mentors() {
 
     return (
         <>
-            <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        height: 240,
-                        overflow: "hidden",
-                    }}
-                >
-                    <CardMedia
-                        component="img"
-                        height="240"
-                        image={banner}
-                        alt="green iguana"
-                    />
-                </Paper>
-            </Grid>
+            <div style={{display:"flex",}}>
+            
+                <TextField fullWidth label="Search here " id="fullWidth" sx={{marginTop: 10}} />
+            
+            
+                <SearchIcon />
+            
+            </div>
             <Typography
                 component="h1"
                 variant="h6"
